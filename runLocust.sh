@@ -3,24 +3,23 @@
 # Run locust load test
 #
 #####################################################################
-[[ $DEBUG ]] && set -x 
 ARGS="$@"
 HOST="${1}"
 SCRIPT_NAME=`basename "$0"`
 INITIAL_DELAY=1
-if [ -z ${TARGET_HOST} ];then
-  TARGET_HOST="$HOST"
-fi
+TARGET_HOST="$HOST"
 CLIENTS=2
-REQUESTS=10
+REQUESTS=100
+INTERVAL=${INTERVAL:-15}
 
+# -d 60 -r 200 -c 2 -h edge-router
 
 do_check() {
 
   # check hostname is not empty
   if [ "${TARGET_HOST}x" == "x" ]; then
-    echo "TARGET_HOST is not set; use '-h hostname:port'"
-    exit 1
+    echo "TARGET_HOST is not set; now set default 'edge-router'"
+    TARGET_HOST="edge-router"
   fi
 
   # check for locust
@@ -31,10 +30,10 @@ do_check() {
 
   # check locust file is present
   if [ -n "${LOCUST_FILE:+1}" ]; then
-  	echo "Locust file: $LOCUST_FILE"
+        echo "Locust file: $LOCUST_FILE"
   else
-  	LOCUST_FILE="locustfile.py" 
-  	echo "Default Locust file: $LOCUST_FILE" 
+        LOCUST_FILE="locustfile.py" 
+        echo "Default Locust file: $LOCUST_FILE" 
   fi
 }
 
@@ -97,6 +96,11 @@ while getopts ":d:h:c:r:" o; do
   esac
 done
 
-
 do_check
-do_exec
+while true
+do
+  echo " --------- starting load test --------- "
+  do_exec
+  echo "------ load test finished ! sleep $INTERVAL seconds and do next ! ------"
+  sleep $INTERVAL
+done
