@@ -3,6 +3,7 @@
 # Run locust load test
 #
 #####################################################################
+[[ $DEBUG ]] && set -x 
 ARGS="$@"
 HOST="${1}"
 SCRIPT_NAME=`basename "$0"`
