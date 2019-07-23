@@ -10,7 +10,10 @@ INITIAL_DELAY=1
 TARGET_HOST="$HOST"
 CLIENTS=2
 REQUESTS=100
-INTERVAL=${INTERVAL:-15}
+if [ -z $RUNTIME ]; then
+  RUNTIME=50s
+fi
+INTERVAL=${INTERVAL:-80}
 
 # -d 60 -r 200 -c 2 -h edge-router
 
@@ -47,9 +50,9 @@ do_exec() {
       exit 1
   fi
 
-  echo "Will run $LOCUST_FILE against $TARGET_HOST. Spawning $CLIENTS clients and $REQUESTS total requests."
+  echo "Will run $LOCUST_FILE against $TARGET_HOST. Spawning $CLIENTS clients stop after $RUNTIME ."
   #locust --host=http://$TARGET_HOST -f $LOCUST_FILE --clients=$CLIENTS --hatch-rate=5 --num-request=$REQUESTS --no-web --only-summary
-  locust --host=http://$TARGET_HOST -f $LOCUST_FILE --clients=$CLIENTS --hatch-rate=5 -n $REQUESTS --no-web --only-summary
+  locust --host=http://$TARGET_HOST -f $LOCUST_FILE --clients=$CLIENTS --hatch-rate=5 --run-time=$RUNTIME --no-web --only-summary
   echo "done"
 }
 
