@@ -7,7 +7,9 @@ ARGS="$@"
 HOST="${1}"
 SCRIPT_NAME=`basename "$0"`
 INITIAL_DELAY=1
-TARGET_HOST="$HOST"
+if [ -z ${TARGET_HOST} ];then
+  TARGET_HOST="$HOST"
+fi
 CLIENTS=2
 REQUESTS=10
 
