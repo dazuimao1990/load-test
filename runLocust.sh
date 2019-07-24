@@ -4,12 +4,11 @@
 #
 #####################################################################
 ARGS="$@"
-HOST="${1}"
+HOST="${TARGET_HOST}"
 SCRIPT_NAME=`basename "$0"`
 INITIAL_DELAY=1
-TARGET_HOST="$HOST"
-CLIENTS=2
-REQUESTS=100
+#TARGET_HOST="$HOST"
+#REQUESTS=100
 if [ -z $RUNTIME ]; then
   RUNTIME=50s
 fi
@@ -50,9 +49,8 @@ do_exec() {
       exit 1
   fi
 
-  echo "Will run $LOCUST_FILE against $TARGET_HOST. Spawning $CLIENTS clients stop after $RUNTIME ."
-  #locust --host=http://$TARGET_HOST -f $LOCUST_FILE --clients=$CLIENTS --hatch-rate=5 --num-request=$REQUESTS --no-web --only-summary
-  locust --host=http://$TARGET_HOST -f $LOCUST_FILE --clients=$CLIENTS --hatch-rate=5 --run-time=$RUNTIME --no-web --only-summary
+  echo "Will run $LOCUST_FILE against $TARGET_HOST. Spawning ${CLIENTS:-2} clients stop after ${RUNTIME:-50s} ."
+  locust --host=http://$TARGET_HOST -f $LOCUST_FILE --clients=${CLIENTS:-2} --hatch-rate=${HATCH_RATE:-5} --run-time=${RUNTIME:-50s} --no-web --only-summary
   echo "done"
 }
 
