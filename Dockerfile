@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3.5
 
 # Install locust
 RUN pip install pyzmq locustio faker
