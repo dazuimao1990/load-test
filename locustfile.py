@@ -4,11 +4,11 @@ from locust import HttpLocust, TaskSet, task
 class MyTaskSet(TaskSet):
 
     @task
-    def baidu_index(self):
+    def todos(self):
         self.client.get("/api/todos")
     
     @task
-    def baidu_index(self):
+    def req(self):
         self.client.get("/api/req")
 
 
