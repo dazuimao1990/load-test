@@ -20,8 +20,8 @@ do_check() {
 
   # check hostname is not empty
   if [ "${TARGET_HOST}x" == "x" ]; then
-    echo "TARGET_HOST is not set; now set default 'edge-router'"
-    TARGET_HOST="edge-router"
+    echo "TARGET_HOST is not set; now set default 'localhost:5000'"
+    TARGET_HOST="127.0.0.1:5000"
   fi
 
   # check for locust

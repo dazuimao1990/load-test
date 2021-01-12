@@ -1,4 +1,4 @@
-FROM python:2.7-wheezy
+FROM python:3.6-alpine
 
 # Install locust
 RUN pip install pyzmq locustio faker
