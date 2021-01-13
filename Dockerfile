@@ -1,14 +1,12 @@
 FROM python:3.6-alpine
 
 # Install locust
-RUN pip install pyzmq locustio faker
+RUN pip install locust -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 ADD locustfile.py /config/locustfile.py
 ADD runLocust.sh /usr/local/bin/runLocust.sh
 
 ENV LOCUST_FILE /config/locustfile.py
-
-EXPOSE 8089
 
 ENTRYPOINT ["/usr/local/bin/runLocust.sh"]
 CMD [ "edge-router" ]
