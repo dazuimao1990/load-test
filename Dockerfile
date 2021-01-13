@@ -1,4 +1,4 @@
-FROM python:3.6-alpine
+FROM python:3.6
 
 # Install locust
 RUN pip install locust -i https://pypi.tuna.tsinghua.edu.cn/simple
