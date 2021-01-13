@@ -50,7 +50,7 @@ do_exec() {
   fi
 
   echo "Will run $LOCUST_FILE against $TARGET_HOST. Spawning ${CLIENTS:-2} clients stop after ${RUNTIME:-50s} ."
-  locust --host=http://$TARGET_HOST -f $LOCUST_FILE --clients=${CLIENTS:-2} --hatch-rate=${HATCH_RATE:-5} --run-time=${RUNTIME:-50s} --no-web --only-summary
+  locust --host=http://$TARGET_HOST -f $LOCUST_FILE --u ${CLIENTS:-2} -r ${HATCH_RATE:-5} -t ${RUNTIME:-50s} --headless --only-summary
   echo "done"
 }
 
