@@ -1,16 +1,7 @@
-import base64
+from locust import HttpUser, task, between
 
-from locust import HttpLocust, TaskSet, task
-from random import randint, choice
-
-
-class WebTasks(TaskSet):
-
+class QuickstartUser(HttpUser):
     @task
-    def load(self):
+    def hello_world(self):
         self.client.get("/mysql.html")
-        
-class Web(HttpLocust):
-    task_set = WebTasks
-    min_wait = 0
-    max_wait = 0
+    wait_time = between(0.5, 10)
